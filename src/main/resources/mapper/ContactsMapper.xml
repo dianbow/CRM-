@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crm.crmsystem.dao.ContactsMapper" >
+  <resultMap id="BaseResultMap" type="com.crm.crmsystem.dao.model.Contacts" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cus_id" property="cusId" jdbcType="INTEGER" />
+    <result column="con_name" property="conName" jdbcType="VARCHAR" />
+    <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
+    <result column="con_source" property="conSource" jdbcType="VARCHAR" />
+    <result column="con_email" property="conEmail" jdbcType="VARCHAR" />
+    <result column="con_email2" property="conEmail2" jdbcType="VARCHAR" />
+    <result column="con_department" property="conDepartment" jdbcType="VARCHAR" />
+    <result column="con_position" property="conPosition" jdbcType="VARCHAR" />
+    <result column="con_phone" property="conPhone" jdbcType="VARCHAR" />
+    <result column="con_tel" property="conTel" jdbcType="VARCHAR" />
+    <result column="con_tel2" property="conTel2" jdbcType="VARCHAR" />
+    <result column="con_birthday" property="conBirthday" jdbcType="VARCHAR" />
+    <result column="con_assistant" property="conAssistant" jdbcType="VARCHAR" />
+    <result column="con_assistant_phone" property="conAssistantPhone" jdbcType="VARCHAR" />
+    <result column="con_send_email" property="conSendEmail" jdbcType="INTEGER" />
+    <result column="con_report" property="conReport" jdbcType="VARCHAR" />
+    <result column="con_skype_id" property="conSkypeId" jdbcType="INTEGER" />
+    <result column="con_des" property="conDes" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cus_id, con_name, supplier_id, con_source, con_email, con_email2, con_department, 
+    con_position, con_phone, con_tel, con_tel2, con_birthday, con_assistant, con_assistant_phone, 
+    con_send_email, con_report, con_skype_id, con_des
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from contacts
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from contacts
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.crm.crmsystem.dao.model.Contacts" useGeneratedKeys="true" keyProperty="id" >
+    insert into contacts (cus_id, con_name, supplier_id, 
+      con_source, con_email, con_email2, 
+      con_department, con_position, con_phone, 
+      con_tel, con_tel2, con_birthday, 
+      con_assistant, con_assistant_phone, con_send_email, 
+      con_report, con_skype_id, con_des
+      )
+    values (#{cusId,jdbcType=INTEGER}, #{conName,jdbcType=VARCHAR}, #{supplierId,jdbcType=INTEGER}, 
+      #{conSource,jdbcType=VARCHAR}, #{conEmail,jdbcType=VARCHAR}, #{conEmail2,jdbcType=VARCHAR}, 
+      #{conDepartment,jdbcType=VARCHAR}, #{conPosition,jdbcType=VARCHAR}, #{conPhone,jdbcType=VARCHAR}, 
+      #{conTel,jdbcType=VARCHAR}, #{conTel2,jdbcType=VARCHAR}, #{conBirthday,jdbcType=VARCHAR}, 
+      #{conAssistant,jdbcType=VARCHAR}, #{conAssistantPhone,jdbcType=VARCHAR}, #{conSendEmail,jdbcType=INTEGER}, 
+      #{conReport,jdbcType=VARCHAR}, #{conSkypeId,jdbcType=INTEGER}, #{conDes,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.crm.crmsystem.dao.model.Contacts" useGeneratedKeys="true" keyProperty="id" >
+    insert into contacts
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cusId != null" >
+        cus_id,
+      </if>
+      <if test="conName != null" >
+        con_name,
+      </if>
+      <if test="supplierId != null" >
+        supplier_id,
+      </if>
+      <if test="conSource != null" >
+        con_source,
+      </if>
+      <if test="conEmail != null" >
+        con_email,
+      </if>
+      <if test="conEmail2 != null" >
+        con_email2,
+      </if>
+      <if test="conDepartment != null" >
+        con_department,
+      </if>
+      <if test="conPosition != null" >
+        con_position,
+      </if>
+      <if test="conPhone != null" >
+        con_phone,
+      </if>
+      <if test="conTel != null" >
+        con_tel,
+      </if>
+      <if test="conTel2 != null" >
+        con_tel2,
+      </if>
+      <if test="conBirthday != null" >
+        con_birthday,
+      </if>
+      <if test="conAssistant != null" >
+        con_assistant,
+      </if>
+      <if test="conAssistantPhone != null" >
+        con_assistant_phone,
+      </if>
+      <if test="conSendEmail != null" >
+        con_send_email,
+      </if>
+      <if test="conReport != null" >
+        con_report,
+      </if>
+      <if test="conSkypeId != null" >
+        con_skype_id,
+      </if>
+      <if test="conDes != null" >
+        con_des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cusId != null" >
+        #{cusId,jdbcType=INTEGER},
+      </if>
+      <if test="conName != null" >
+        #{conName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="conSource != null" >
+        #{conSource,jdbcType=VARCHAR},
+      </if>
+      <if test="conEmail != null" >
+        #{conEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="conEmail2 != null" >
+        #{conEmail2,jdbcType=VARCHAR},
+      </if>
+      <if test="conDepartment != null" >
+        #{conDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="conPosition != null" >
+        #{conPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="conPhone != null" >
+        #{conPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="conTel != null" >
+        #{conTel,jdbcType=VARCHAR},
+      </if>
+      <if test="conTel2 != null" >
+        #{conTel2,jdbcType=VARCHAR},
+      </if>
+      <if test="conBirthday != null" >
+        #{conBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="conAssistant != null" >
+        #{conAssistant,jdbcType=VARCHAR},
+      </if>
+      <if test="conAssistantPhone != null" >
+        #{conAssistantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="conSendEmail != null" >
+        #{conSendEmail,jdbcType=INTEGER},
+      </if>
+      <if test="conReport != null" >
+        #{conReport,jdbcType=VARCHAR},
+      </if>
+      <if test="conSkypeId != null" >
+        #{conSkypeId,jdbcType=INTEGER},
+      </if>
+      <if test="conDes != null" >
+        #{conDes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.crm.crmsystem.dao.model.Contacts" >
+    update contacts
+    <set >
+      <if test="cusId != null" >
+        cus_id = #{cusId,jdbcType=INTEGER},
+      </if>
+      <if test="conName != null" >
+        con_name = #{conName,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierId != null" >
+        supplier_id = #{supplierId,jdbcType=INTEGER},
+      </if>
+      <if test="conSource != null" >
+        con_source = #{conSource,jdbcType=VARCHAR},
+      </if>
+      <if test="conEmail != null" >
+        con_email = #{conEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="conEmail2 != null" >
+        con_email2 = #{conEmail2,jdbcType=VARCHAR},
+      </if>
+      <if test="conDepartment != null" >
+        con_department = #{conDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="conPosition != null" >
+        con_position = #{conPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="conPhone != null" >
+        con_phone = #{conPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="conTel != null" >
+        con_tel = #{conTel,jdbcType=VARCHAR},
+      </if>
+      <if test="conTel2 != null" >
+        con_tel2 = #{conTel2,jdbcType=VARCHAR},
+      </if>
+      <if test="conBirthday != null" >
+        con_birthday = #{conBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="conAssistant != null" >
+        con_assistant = #{conAssistant,jdbcType=VARCHAR},
+      </if>
+      <if test="conAssistantPhone != null" >
+        con_assistant_phone = #{conAssistantPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="conSendEmail != null" >
+        con_send_email = #{conSendEmail,jdbcType=INTEGER},
+      </if>
+      <if test="conReport != null" >
+        con_report = #{conReport,jdbcType=VARCHAR},
+      </if>
+      <if test="conSkypeId != null" >
+        con_skype_id = #{conSkypeId,jdbcType=INTEGER},
+      </if>
+      <if test="conDes != null" >
+        con_des = #{conDes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.crm.crmsystem.dao.model.Contacts" >
+    update contacts
+    set cus_id = #{cusId,jdbcType=INTEGER},
+      con_name = #{conName,jdbcType=VARCHAR},
+      supplier_id = #{supplierId,jdbcType=INTEGER},
+      con_source = #{conSource,jdbcType=VARCHAR},
+      con_email = #{conEmail,jdbcType=VARCHAR},
+      con_email2 = #{conEmail2,jdbcType=VARCHAR},
+      con_department = #{conDepartment,jdbcType=VARCHAR},
+      con_position = #{conPosition,jdbcType=VARCHAR},
+      con_phone = #{conPhone,jdbcType=VARCHAR},
+      con_tel = #{conTel,jdbcType=VARCHAR},
+      con_tel2 = #{conTel2,jdbcType=VARCHAR},
+      con_birthday = #{conBirthday,jdbcType=VARCHAR},
+      con_assistant = #{conAssistant,jdbcType=VARCHAR},
+      con_assistant_phone = #{conAssistantPhone,jdbcType=VARCHAR},
+      con_send_email = #{conSendEmail,jdbcType=INTEGER},
+      con_report = #{conReport,jdbcType=VARCHAR},
+      con_skype_id = #{conSkypeId,jdbcType=INTEGER},
+      con_des = #{conDes,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
