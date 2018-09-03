@@ -27,7 +27,7 @@ public class Swagger {
   }
   private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
-            .title("用户管理模块API文档")
+            .title("客户管理模块API文档")
             .description("此文档是有关用户模块，增删改查，以及分页查询")
             .version("1.0")//版本
             .contact(new Contact("wudianbo", "http://baidu.com", "wudianbo185@163.com"))
