@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.crm.crmsystem.dao.model.Contacts" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="cus_id" property="cusId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
     <result column="con_name" property="conName" jdbcType="VARCHAR" />
     <result column="supplier_id" property="supplierId" jdbcType="INTEGER" />
     <result column="con_source" property="conSource" jdbcType="VARCHAR" />
@@ -23,7 +24,7 @@
     <result column="con_des" property="conDes" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, cus_id, con_name, supplier_id, con_source, con_email, con_email2, con_department, 
+    id, cus_id, user_id, con_name, supplier_id, con_source, con_email, con_email2, con_department, 
     con_position, con_phone, con_tel, con_tel2, con_birthday, con_assistant, con_assistant_phone, 
     con_send_email, con_report, con_skype_id, con_des
   </sql>
@@ -38,26 +39,29 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.crm.crmsystem.dao.model.Contacts" useGeneratedKeys="true" keyProperty="id" >
-    insert into contacts (cus_id, con_name, supplier_id, 
-      con_source, con_email, con_email2, 
-      con_department, con_position, con_phone, 
-      con_tel, con_tel2, con_birthday, 
-      con_assistant, con_assistant_phone, con_send_email, 
-      con_report, con_skype_id, con_des
-      )
-    values (#{cusId,jdbcType=INTEGER}, #{conName,jdbcType=VARCHAR}, #{supplierId,jdbcType=INTEGER}, 
-      #{conSource,jdbcType=VARCHAR}, #{conEmail,jdbcType=VARCHAR}, #{conEmail2,jdbcType=VARCHAR}, 
-      #{conDepartment,jdbcType=VARCHAR}, #{conPosition,jdbcType=VARCHAR}, #{conPhone,jdbcType=VARCHAR}, 
-      #{conTel,jdbcType=VARCHAR}, #{conTel2,jdbcType=VARCHAR}, #{conBirthday,jdbcType=VARCHAR}, 
-      #{conAssistant,jdbcType=VARCHAR}, #{conAssistantPhone,jdbcType=VARCHAR}, #{conSendEmail,jdbcType=INTEGER}, 
-      #{conReport,jdbcType=VARCHAR}, #{conSkypeId,jdbcType=INTEGER}, #{conDes,jdbcType=VARCHAR}
-      )
+    insert into contacts (cus_id, user_id, con_name, 
+      supplier_id, con_source, con_email, 
+      con_email2, con_department, con_position, 
+      con_phone, con_tel, con_tel2, 
+      con_birthday, con_assistant, con_assistant_phone, 
+      con_send_email, con_report, con_skype_id, 
+      con_des)
+    values (#{cusId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{conName,jdbcType=VARCHAR}, 
+      #{supplierId,jdbcType=INTEGER}, #{conSource,jdbcType=VARCHAR}, #{conEmail,jdbcType=VARCHAR}, 
+      #{conEmail2,jdbcType=VARCHAR}, #{conDepartment,jdbcType=VARCHAR}, #{conPosition,jdbcType=VARCHAR}, 
+      #{conPhone,jdbcType=VARCHAR}, #{conTel,jdbcType=VARCHAR}, #{conTel2,jdbcType=VARCHAR}, 
+      #{conBirthday,jdbcType=VARCHAR}, #{conAssistant,jdbcType=VARCHAR}, #{conAssistantPhone,jdbcType=VARCHAR}, 
+      #{conSendEmail,jdbcType=INTEGER}, #{conReport,jdbcType=VARCHAR}, #{conSkypeId,jdbcType=INTEGER}, 
+      #{conDes,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.crm.crmsystem.dao.model.Contacts" useGeneratedKeys="true" keyProperty="id" >
     insert into contacts
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cusId != null" >
         cus_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="conName != null" >
         con_name,
@@ -114,6 +118,9 @@
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cusId != null" >
         #{cusId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
       </if>
       <if test="conName != null" >
         #{conName,jdbcType=VARCHAR},
@@ -174,6 +181,9 @@
       <if test="cusId != null" >
         cus_id = #{cusId,jdbcType=INTEGER},
       </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
       <if test="conName != null" >
         con_name = #{conName,jdbcType=VARCHAR},
       </if>
@@ -231,6 +241,7 @@
   <update id="updateByPrimaryKey" parameterType="com.crm.crmsystem.dao.model.Contacts" >
     update contacts
     set cus_id = #{cusId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
       con_name = #{conName,jdbcType=VARCHAR},
       supplier_id = #{supplierId,jdbcType=INTEGER},
       con_source = #{conSource,jdbcType=VARCHAR},
