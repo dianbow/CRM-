@@ -49,4 +49,20 @@
     set industry_name = #{industryName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selCusType" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from cus_industry
+    where
+    <if test="form.id!=null">
+      id = #{form.id,jdbcType=INTEGER}
+    </if>
+    <if test="form.industryName!=null and form.industryName !='' and form.id!=null">
+      AND industry_name = #{form.industryName,jdbcType=VARCHAR}
+    </if>
+    <if test="form.industryName!=null and form.industryName !='' and form.id==null">
+      industry_name LIKE '%${form.industryName}%'
+    </if>
+  </select>
 </mapper>
