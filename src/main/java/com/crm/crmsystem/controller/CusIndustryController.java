@@ -18,7 +18,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Api(description = "CusIndustry行业接口文档")
 @RestController
-@RequestMapping("cusIndustry/")
+@RequestMapping("crm/cusIndustry/")
 public class CusIndustryController {
 
   @Autowired

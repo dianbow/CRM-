@@ -19,7 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("cus/")
+@RequestMapping("crm/cus/")
 @Api(description="客户管理接口")
 public class CustomerController {
 

@@ -24,7 +24,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("user/")
+@RequestMapping("crm/user/")
 @Api(description="用户管理接口")
 public class UserController {
 

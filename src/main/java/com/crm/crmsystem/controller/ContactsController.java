@@ -19,7 +19,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Api(description="联系人接口")
 @RestController
-@RequestMapping("con/")
+@RequestMapping("crm/con/")
 public class ContactsController {
 
   @Autowired

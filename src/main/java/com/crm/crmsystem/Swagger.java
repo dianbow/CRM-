@@ -22,7 +22,7 @@ public class Swagger {
             .apiInfo(apiInfo())
             .useDefaultResponseMessages(false)
             .select()
-            .paths(Predicates.or(PathSelectors.regex("/.*")))
+            .paths(Predicates.or(PathSelectors.regex("/crm/.*")))
             .build();
   }
   private ApiInfo apiInfo() {
@@ -36,28 +36,4 @@ public class Swagger {
             .build();
   }
 
-
-//  @Value("${swagger.show}")
-//  private boolean swaggerShow;
-
-//  @Bean
-//  public Docket createRestApi() {
-//    return new Docket(DocumentationType.SWAGGER_2)
-//            .enable(swaggerShow)
-//            .apiInfo(apiInfo())
-//            .select()
-//            .apis(RequestHandlerSelectors.basePackage("com.jieyuechina.bdc.galaxy.controller"))
-//            .paths(PathSelectors.any())
-//            .build();
-//  }
-//
-//  private ApiInfo apiInfo() {
-//    return new ApiInfoBuilder()
-//            .title("银河平台-标签API服务")
-//            .description("银河平台-标签API服务")
-//            .termsOfServiceUrl("http://bdc.jieyuechina.com")
-//            .contact(new Contact("", "http://dbc.jieyuechina.com", "xiaoshuichen@jieyuechina.com"))
-//            .version("1.0")
-//            .build();
-//  }
 }

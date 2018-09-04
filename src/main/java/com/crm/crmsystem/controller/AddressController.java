@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("address/")
+@RequestMapping("crm/address/")
 @Api(description="地址管理接口")
 public class AddressController {
 

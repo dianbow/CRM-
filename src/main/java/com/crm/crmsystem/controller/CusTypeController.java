@@ -18,7 +18,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Api(description = "CusType客户类型接口文档")
 @RestController
-@RequestMapping("cusType/")
+@RequestMapping("crm/cusType/")
 public class CusTypeController {
 
   @Autowired
