@@ -22,7 +22,7 @@ public class Swagger {
             .apiInfo(apiInfo())
             .useDefaultResponseMessages(false)
             .select()
-            .paths(Predicates.or(PathSelectors.regex("/user/.*")))
+            .paths(Predicates.or(PathSelectors.regex("/.*")))
             .build();
   }
   private ApiInfo apiInfo() {

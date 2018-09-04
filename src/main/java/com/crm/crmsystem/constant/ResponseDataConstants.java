@@ -12,6 +12,8 @@ public class ResponseDataConstants {
   public static final String DATAS_EMPTY="参数数组不能为空";
   public static final String SYSTEM_ERRO="系统内部异常";
   public static final String ADDRESS_ERRO="联系人或客户名为空";
+  public static final String USER_ERRO="用户为空";
+
 
 
 }

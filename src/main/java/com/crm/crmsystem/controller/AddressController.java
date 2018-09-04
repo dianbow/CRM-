@@ -41,7 +41,7 @@ public class AddressController {
     return addressService.delAddByCusIdOrConId(address);
   }
   @RequestMapping(value = "modAddByCusIdOrConId",method = POST)
-  @ApiOperation(value = "删除地址", notes = "根据客户ID或者联系人ID删除地址")
+  @ApiOperation(value = "修改地址", notes = "根据客户ID或者联系人ID修改地址")
   public ResponseData<Address> modAddByCusIdOrConId(@RequestBody Address address){
 
     return addressService.modAddByCusIdOrConId(address);

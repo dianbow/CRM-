@@ -13,7 +13,7 @@
     <result column="cus_web" property="cusWeb" jdbcType="VARCHAR" />
     <result column="cus_number" property="cusNumber" jdbcType="VARCHAR" />
     <result column="cus_shares" property="cusShares" jdbcType="INTEGER" />
-    <result column="cus_type_id" property="cusTypeId" jdbcType="VARCHAR" />
+    <result column="cus_type_id" property="cusTypeId" jdbcType="INTEGER" />
     <result column="cus_ownership" property="cusOwnership" jdbcType="VARCHAR" />
     <result column="cus_industry_id" property="cusIndustryId" jdbcType="INTEGER" />
     <result column="cus_employees_num" property="cusEmployeesNum" jdbcType="INTEGER" />
@@ -48,7 +48,7 @@
     values (#{userId,jdbcType=INTEGER}, #{cusName,jdbcType=VARCHAR}, #{cusLevel,jdbcType=VARCHAR}, 
       #{cusPhone,jdbcType=VARCHAR}, #{cusAddress,jdbcType=VARCHAR}, #{cusEmail,jdbcType=VARCHAR}, 
       #{cusParentId,jdbcType=INTEGER}, #{cusWeb,jdbcType=VARCHAR}, #{cusNumber,jdbcType=VARCHAR}, 
-      #{cusShares,jdbcType=INTEGER}, #{cusTypeId,jdbcType=VARCHAR}, #{cusOwnership,jdbcType=VARCHAR}, 
+      #{cusShares,jdbcType=INTEGER}, #{cusTypeId,jdbcType=INTEGER}, #{cusOwnership,jdbcType=VARCHAR}, 
       #{cusIndustryId,jdbcType=INTEGER}, #{cusEmployeesNum,jdbcType=INTEGER}, #{cusAnnualIncome,jdbcType=VARCHAR}, 
       #{cusSic,jdbcType=VARCHAR}, #{cusDes,jdbcType=VARCHAR}, #{isvalid,jdbcType=INTEGER}
       )
@@ -143,7 +143,7 @@
         #{cusShares,jdbcType=INTEGER},
       </if>
       <if test="cusTypeId != null" >
-        #{cusTypeId,jdbcType=VARCHAR},
+        #{cusTypeId,jdbcType=INTEGER},
       </if>
       <if test="cusOwnership != null" >
         #{cusOwnership,jdbcType=VARCHAR},
@@ -202,7 +202,7 @@
         cus_shares = #{cusShares,jdbcType=INTEGER},
       </if>
       <if test="cusTypeId != null" >
-        cus_type_id = #{cusTypeId,jdbcType=VARCHAR},
+        cus_type_id = #{cusTypeId,jdbcType=INTEGER},
       </if>
       <if test="cusOwnership != null" >
         cus_ownership = #{cusOwnership,jdbcType=VARCHAR},
@@ -240,7 +240,7 @@
       cus_web = #{cusWeb,jdbcType=VARCHAR},
       cus_number = #{cusNumber,jdbcType=VARCHAR},
       cus_shares = #{cusShares,jdbcType=INTEGER},
-      cus_type_id = #{cusTypeId,jdbcType=VARCHAR},
+      cus_type_id = #{cusTypeId,jdbcType=INTEGER},
       cus_ownership = #{cusOwnership,jdbcType=VARCHAR},
       cus_industry_id = #{cusIndustryId,jdbcType=INTEGER},
       cus_employees_num = #{cusEmployeesNum,jdbcType=INTEGER},
@@ -250,4 +250,30 @@
       isValid = #{isvalid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAllCustomer" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from customer
+    where isValid = 1
+    <if test="form.cusName != null and form.cusName != ''">
+      and cus_name like '%${form.cusName}%'
+    </if>
+    <if test="form.cusAddress != null and form.cusAddress != ''">
+      and cus_address like '%${form.cusAddress}%'
+    </if>
+    <if test="form.userId != null ">
+      and user_id = '%${form.userId}%'
+    </if>
+    <if test="form.cusTypeId != null ">
+      and cus_type_id = '%${form.cusTypeId}%'
+    </if>
+    <if test="form.cusIndustryId != null ">
+      and cus_industry_id = '%${form.cusIndustryId}%'
+    </if>
+    <if test="form.cusParentId != null ">
+      and cus_parent_id = '%${form.cusParentId}%'
+    </if>
+
+  </select>
+
 </mapper>

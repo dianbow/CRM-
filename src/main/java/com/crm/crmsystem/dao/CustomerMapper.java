@@ -1,6 +1,9 @@
 package com.crm.crmsystem.dao;
 
 import com.crm.crmsystem.dao.model.Customer;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CustomerMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface CustomerMapper {
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);
+
+    //按条件分页查询所有客户
+    List<Customer> selectAllCustomer(@Param("form")Customer customer);
+
 }
