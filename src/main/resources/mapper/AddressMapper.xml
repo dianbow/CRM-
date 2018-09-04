@@ -130,4 +130,66 @@
       type = #{type,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+
+  <select id="selAddByCusIdOrConId" resultMap="BaseResultMap" parameterType="com.crm.crmsystem.dao.model.Address" >
+    select
+    <include refid="Base_Column_List" />
+    from address
+    where
+    <if test="address.cusId != null" >
+      cus_id = #{address.cusId,jdbcType=INTEGER}
+    </if>
+    <if test="address.conId != null" >
+      con_id = #{address.conId,jdbcType=INTEGER}
+    </if>
+    <if test="address.type != null" >
+      AND type = #{address.type,jdbcType=INTEGER}
+    </if>
+    AND isValid = 1
+  </select>
+
+  <update id="delAddByCusIdOrConId" parameterType="com.crm.crmsystem.dao.model.Address" >
+    update address
+    set
+    isValid = 0
+    where
+    <if test="address.cusId != null" >
+      cus_id = #{address.cusId,jdbcType=INTEGER}
+    </if>
+    <if test="address.conId != null" >
+      con_id = #{address.conId,jdbcType=INTEGER}
+    </if>
+    <if test="address.type != null" >
+      AND type = #{address.type,jdbcType=INTEGER}
+    </if>
+  </update>
+
+  <update id="modAddByCusIdOrConId" parameterType="com.crm.crmsystem.dao.model.Address" >
+    update address
+    <set >
+      <if test="address.contry != null" >
+        contry = #{address.contry,jdbcType=VARCHAR},
+      </if>
+      <if test="address.province != null" >
+        province = #{address.province,jdbcType=VARCHAR},
+      </if>
+      <if test="address.city != null" >
+        city = #{address.city,jdbcType=VARCHAR},
+      </if>
+      <if test="address.street != null" >
+        street = #{address.street,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where
+    <if test="address.cusId != null" >
+      cus_id = #{address.cusId,jdbcType=INTEGER}
+    </if>
+    <if test="address.conId != null" >
+      con_id = #{address.conId,jdbcType=INTEGER}
+    </if>
+    <if test="address.type != null" >
+      AND type = #{address.type,jdbcType=INTEGER}
+    </if>
+  </update>
 </mapper>

@@ -39,4 +39,32 @@ public class AddressService {
     Address address1 = addressMapper.selAddByCusIdOrConId(address);
     return ResponseData.ok(address1);
   }
+
+  public ResponseData<Address> delAddByCusIdOrConId(Address address) {
+
+    if (address.getConId()==null||address.getConId().equals("")) {
+      if (address.getCusId() == null || address.getCusId().equals("")) {
+        return ResponseData.ok(ResponseDataConstants.ADDRESS_ERRO);
+      }
+    }
+    int insert = addressMapper.delAddByCusIdOrConId(address);
+    if (insert==0){
+      return ResponseData.ok(ResponseDataConstants.SYSTEM_ERRO);
+    }
+    return ResponseData.ok(ResponseData.SUCCESS);
+  }
+
+  public ResponseData<Address> modAddByCusIdOrConId(Address address) {
+
+    if (address.getConId()==null||address.getConId().equals("")) {
+      if (address.getCusId() == null || address.getCusId().equals("")) {
+        return ResponseData.ok(ResponseDataConstants.ADDRESS_ERRO);
+      }
+    }
+    int insert = addressMapper.modAddByCusIdOrConId(address);
+    if (insert==0){
+      return ResponseData.ok(ResponseDataConstants.SYSTEM_ERRO);
+    }
+    return ResponseData.ok(ResponseData.SUCCESS);
+  }
 }
