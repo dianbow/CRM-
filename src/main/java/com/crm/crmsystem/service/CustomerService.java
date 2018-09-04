@@ -36,7 +36,7 @@ public class CustomerService {
 
   public ResponseData<String> delCus(int id) {
 
-    int insert = customerMapper.deleteByPrimaryKey(id);
+    int insert = customerMapper.deleteById(id);
     if (insert==0){
       return ResponseData.ok(ResponseDataConstants.SYSTEM_ERRO);
     }

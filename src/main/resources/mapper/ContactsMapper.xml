@@ -22,11 +22,12 @@
     <result column="con_report" property="conReport" jdbcType="VARCHAR" />
     <result column="con_skype_id" property="conSkypeId" jdbcType="INTEGER" />
     <result column="con_des" property="conDes" jdbcType="VARCHAR" />
+    <result column="isValid" property="isValid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
     id, cus_id, user_id, con_name, supplier_id, con_source, con_email, con_email2, con_department, 
     con_position, con_phone, con_tel, con_tel2, con_birthday, con_assistant, con_assistant_phone, 
-    con_send_email, con_report, con_skype_id, con_des
+    con_send_email, con_report, con_skype_id, con_des, isValid
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -45,14 +46,14 @@
       con_phone, con_tel, con_tel2, 
       con_birthday, con_assistant, con_assistant_phone, 
       con_send_email, con_report, con_skype_id, 
-      con_des)
+      con_des, isValid)
     values (#{cusId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{conName,jdbcType=VARCHAR}, 
       #{supplierId,jdbcType=INTEGER}, #{conSource,jdbcType=VARCHAR}, #{conEmail,jdbcType=VARCHAR}, 
       #{conEmail2,jdbcType=VARCHAR}, #{conDepartment,jdbcType=VARCHAR}, #{conPosition,jdbcType=VARCHAR}, 
       #{conPhone,jdbcType=VARCHAR}, #{conTel,jdbcType=VARCHAR}, #{conTel2,jdbcType=VARCHAR}, 
       #{conBirthday,jdbcType=VARCHAR}, #{conAssistant,jdbcType=VARCHAR}, #{conAssistantPhone,jdbcType=VARCHAR}, 
       #{conSendEmail,jdbcType=INTEGER}, #{conReport,jdbcType=VARCHAR}, #{conSkypeId,jdbcType=INTEGER}, 
-      #{conDes,jdbcType=VARCHAR})
+      #{conDes,jdbcType=VARCHAR}, 1)
   </insert>
   <insert id="insertSelective" parameterType="com.crm.crmsystem.dao.model.Contacts" useGeneratedKeys="true" keyProperty="id" >
     insert into contacts
@@ -114,6 +115,9 @@
       <if test="conDes != null" >
         con_des,
       </if>
+      <if test="isValid != null" >
+        isValid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="cusId != null" >
@@ -172,6 +176,9 @@
       </if>
       <if test="conDes != null" >
         #{conDes,jdbcType=VARCHAR},
+      </if>
+      <if test="isValid != null" >
+        #{isValid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -235,6 +242,7 @@
       <if test="conDes != null" >
         con_des = #{conDes,jdbcType=VARCHAR},
       </if>
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -258,7 +266,40 @@
       con_send_email = #{conSendEmail,jdbcType=INTEGER},
       con_report = #{conReport,jdbcType=VARCHAR},
       con_skype_id = #{conSkypeId,jdbcType=INTEGER},
-      con_des = #{conDes,jdbcType=VARCHAR}
+      con_des = #{conDes,jdbcType=VARCHAR},
+      isValid = #{isValid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="deleteById" parameterType="java.lang.Integer" >
+    update contacts
+    set
+    isValid = 0
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAllCustomer" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from contacts
+    where isValid = 1
+    <if test="form.id != null ">
+      and id = {form.id}
+    </if>
+    <if test="form.cusId != null ">
+      and cus_id = {form.cusId}
+    </if>
+    <if test="form.userId != null ">
+      and user_id = {form.userId}
+    </if>
+
+    <if test="form.conName != null and form.conName != ''">
+      and con_name like '%${form.conName}%'
+    </if>
+    <if test="form.conEmail != null and form.conEmail != ''">
+      and con_email like '%${form.conEmail}%'
+    </if>
+    <if test="form.conPhone != null and form.conPhone != ''">
+      and con_phone like '%${form.conPhone}%'
+    </if>
+  </select>
 </mapper>

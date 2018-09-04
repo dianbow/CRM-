@@ -21,4 +21,6 @@ public interface CustomerMapper {
     //按条件分页查询所有客户
     List<Customer> selectAllCustomer(@Param("form")Customer customer);
 
+    //删除客户
+    int deleteById(int id);
 }

@@ -262,18 +262,24 @@
       and cus_address like '%${form.cusAddress}%'
     </if>
     <if test="form.userId != null ">
-      and user_id = '%${form.userId}%'
+      and user_id = {form.userId}
     </if>
     <if test="form.cusTypeId != null ">
-      and cus_type_id = '%${form.cusTypeId}%'
+      and cus_type_id = {form.cusTypeId}
     </if>
     <if test="form.cusIndustryId != null ">
-      and cus_industry_id = '%${form.cusIndustryId}%'
+      and cus_industry_id = {form.cusIndustryId}
     </if>
     <if test="form.cusParentId != null ">
-      and cus_parent_id = '%${form.cusParentId}%'
+      and cus_parent_id = {form.cusParentId}
     </if>
 
   </select>
 
+  <update id="deleteById" parameterType="java.lang.Integer" >
+    update customer
+    set
+    isValid = 0
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
