@@ -1,43 +1,43 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.crm.crmsystem.dao.CustomerMapper">
-  <resultMap id="BaseResultMap" type="com.crm.crmsystem.dao.model.Customer">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="cus_name" jdbcType="VARCHAR" property="cusName" />
-    <result column="cus_level" jdbcType="VARCHAR" property="cusLevel" />
-    <result column="cus_phone" jdbcType="VARCHAR" property="cusPhone" />
-    <result column="cus_address" jdbcType="VARCHAR" property="cusAddress" />
-    <result column="cus_email" jdbcType="VARCHAR" property="cusEmail" />
-    <result column="cus_parent_id" jdbcType="INTEGER" property="cusParentId" />
-    <result column="cus_web" jdbcType="VARCHAR" property="cusWeb" />
-    <result column="cus_number" jdbcType="VARCHAR" property="cusNumber" />
-    <result column="cus_shares" jdbcType="INTEGER" property="cusShares" />
-    <result column="cus_type_id" jdbcType="VARCHAR" property="cusTypeId" />
-    <result column="cus_ownership" jdbcType="VARCHAR" property="cusOwnership" />
-    <result column="cus_industry_id" jdbcType="INTEGER" property="cusIndustryId" />
-    <result column="cus_employees_num" jdbcType="INTEGER" property="cusEmployeesNum" />
-    <result column="cus_annual_income" jdbcType="VARCHAR" property="cusAnnualIncome" />
-    <result column="cus_sic" jdbcType="VARCHAR" property="cusSic" />
-    <result column="cus_des" jdbcType="VARCHAR" property="cusDes" />
-    <result column="isValid" jdbcType="INTEGER" property="isvalid" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crm.crmsystem.dao.CustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.crm.crmsystem.dao.model.Customer" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="cus_name" property="cusName" jdbcType="VARCHAR" />
+    <result column="cus_level" property="cusLevel" jdbcType="VARCHAR" />
+    <result column="cus_phone" property="cusPhone" jdbcType="VARCHAR" />
+    <result column="cus_address" property="cusAddress" jdbcType="VARCHAR" />
+    <result column="cus_email" property="cusEmail" jdbcType="VARCHAR" />
+    <result column="cus_parent_id" property="cusParentId" jdbcType="INTEGER" />
+    <result column="cus_web" property="cusWeb" jdbcType="VARCHAR" />
+    <result column="cus_number" property="cusNumber" jdbcType="VARCHAR" />
+    <result column="cus_shares" property="cusShares" jdbcType="INTEGER" />
+    <result column="cus_type_id" property="cusTypeId" jdbcType="VARCHAR" />
+    <result column="cus_ownership" property="cusOwnership" jdbcType="VARCHAR" />
+    <result column="cus_industry_id" property="cusIndustryId" jdbcType="INTEGER" />
+    <result column="cus_employees_num" property="cusEmployeesNum" jdbcType="INTEGER" />
+    <result column="cus_annual_income" property="cusAnnualIncome" jdbcType="VARCHAR" />
+    <result column="cus_sic" property="cusSic" jdbcType="VARCHAR" />
+    <result column="cus_des" property="cusDes" jdbcType="VARCHAR" />
+    <result column="isValid" property="isvalid" jdbcType="INTEGER" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, user_id, cus_name, cus_level, cus_phone, cus_address, cus_email, cus_parent_id, 
     cus_web, cus_number, cus_shares, cus_type_id, cus_ownership, cus_industry_id, cus_employees_num, 
     cus_annual_income, cus_sic, cus_des, isValid
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from customer
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from customer
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyProperty="id" parameterType="com.crm.crmsystem.dao.model.Customer" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.crm.crmsystem.dao.model.Customer" useGeneratedKeys="true" keyProperty="id" >
     insert into customer (user_id, cus_name, cus_level, 
       cus_phone, cus_address, cus_email, 
       cus_parent_id, cus_web, cus_number, 
@@ -53,431 +53,182 @@
       #{cusSic,jdbcType=VARCHAR}, #{cusDes,jdbcType=VARCHAR}, #{isvalid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" keyProperty="id" parameterType="com.crm.crmsystem.dao.model.Customer" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.crm.crmsystem.dao.model.Customer" useGeneratedKeys="true" keyProperty="id" >
     insert into customer
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
         user_id,
       </if>
-      <if test="cusName != null">
+      <if test="cusName != null" >
         cus_name,
       </if>
-      <if test="cusLevel != null">
+      <if test="cusLevel != null" >
         cus_level,
       </if>
-      <if test="cusPhone != null">
+      <if test="cusPhone != null" >
         cus_phone,
       </if>
-      <if test="cusAddress != null">
+      <if test="cusAddress != null" >
         cus_address,
       </if>
-      <if test="cusEmail != null">
+      <if test="cusEmail != null" >
         cus_email,
       </if>
-      <if test="cusParentId != null">
+      <if test="cusParentId != null" >
         cus_parent_id,
       </if>
-      <if test="cusWeb != null">
+      <if test="cusWeb != null" >
         cus_web,
       </if>
-      <if test="cusNumber != null">
+      <if test="cusNumber != null" >
         cus_number,
       </if>
-      <if test="cusShares != null">
+      <if test="cusShares != null" >
         cus_shares,
       </if>
-      <if test="cusTypeId != null">
+      <if test="cusTypeId != null" >
         cus_type_id,
       </if>
-      <if test="cusOwnership != null">
+      <if test="cusOwnership != null" >
         cus_ownership,
       </if>
-      <if test="cusIndustryId != null">
+      <if test="cusIndustryId != null" >
         cus_industry_id,
       </if>
-      <if test="cusEmployeesNum != null">
+      <if test="cusEmployeesNum != null" >
         cus_employees_num,
       </if>
-      <if test="cusAnnualIncome != null">
+      <if test="cusAnnualIncome != null" >
         cus_annual_income,
       </if>
-      <if test="cusSic != null">
+      <if test="cusSic != null" >
         cus_sic,
       </if>
-      <if test="cusDes != null">
+      <if test="cusDes != null" >
         cus_des,
       </if>
-      <if test="isvalid != null">
+      <if test="isvalid != null" >
         isValid,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="cusName != null">
+      <if test="cusName != null" >
         #{cusName,jdbcType=VARCHAR},
       </if>
-      <if test="cusLevel != null">
+      <if test="cusLevel != null" >
         #{cusLevel,jdbcType=VARCHAR},
       </if>
-      <if test="cusPhone != null">
+      <if test="cusPhone != null" >
         #{cusPhone,jdbcType=VARCHAR},
       </if>
-      <if test="cusAddress != null">
+      <if test="cusAddress != null" >
         #{cusAddress,jdbcType=VARCHAR},
       </if>
-      <if test="cusEmail != null">
+      <if test="cusEmail != null" >
         #{cusEmail,jdbcType=VARCHAR},
       </if>
-      <if test="cusParentId != null">
+      <if test="cusParentId != null" >
         #{cusParentId,jdbcType=INTEGER},
       </if>
-      <if test="cusWeb != null">
+      <if test="cusWeb != null" >
         #{cusWeb,jdbcType=VARCHAR},
       </if>
-      <if test="cusNumber != null">
+      <if test="cusNumber != null" >
         #{cusNumber,jdbcType=VARCHAR},
       </if>
-      <if test="cusShares != null">
+      <if test="cusShares != null" >
         #{cusShares,jdbcType=INTEGER},
       </if>
-      <if test="cusTypeId != null">
+      <if test="cusTypeId != null" >
         #{cusTypeId,jdbcType=VARCHAR},
       </if>
-      <if test="cusOwnership != null">
+      <if test="cusOwnership != null" >
         #{cusOwnership,jdbcType=VARCHAR},
       </if>
-      <if test="cusIndustryId != null">
+      <if test="cusIndustryId != null" >
         #{cusIndustryId,jdbcType=INTEGER},
       </if>
-      <if test="cusEmployeesNum != null">
+      <if test="cusEmployeesNum != null" >
         #{cusEmployeesNum,jdbcType=INTEGER},
       </if>
-      <if test="cusAnnualIncome != null">
+      <if test="cusAnnualIncome != null" >
         #{cusAnnualIncome,jdbcType=VARCHAR},
       </if>
-      <if test="cusSic != null">
+      <if test="cusSic != null" >
         #{cusSic,jdbcType=VARCHAR},
       </if>
-      <if test="cusDes != null">
+      <if test="cusDes != null" >
         #{cusDes,jdbcType=VARCHAR},
       </if>
-      <if test="isvalid != null">
+      <if test="isvalid != null" >
         #{isvalid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.crm.crmsystem.dao.model.Customer">
+  <update id="updateByPrimaryKeySelective" parameterType="com.crm.crmsystem.dao.model.Customer" >
     update customer
-    <set>
-      <if test="userId != null">
+    <set >
+      <if test="userId != null" >
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="cusName != null">
+      <if test="cusName != null" >
         cus_name = #{cusName,jdbcType=VARCHAR},
       </if>
-      <if test="cusLevel != null">
+      <if test="cusLevel != null" >
         cus_level = #{cusLevel,jdbcType=VARCHAR},
       </if>
-      <if test="cusPhone != null">
+      <if test="cusPhone != null" >
         cus_phone = #{cusPhone,jdbcType=VARCHAR},
       </if>
-      <if test="cusAddress != null">
+      <if test="cusAddress != null" >
         cus_address = #{cusAddress,jdbcType=VARCHAR},
       </if>
-      <if test="cusEmail != null">
+      <if test="cusEmail != null" >
         cus_email = #{cusEmail,jdbcType=VARCHAR},
       </if>
-      <if test="cusParentId != null">
+      <if test="cusParentId != null" >
         cus_parent_id = #{cusParentId,jdbcType=INTEGER},
       </if>
-      <if test="cusWeb != null">
+      <if test="cusWeb != null" >
         cus_web = #{cusWeb,jdbcType=VARCHAR},
       </if>
-      <if test="cusNumber != null">
+      <if test="cusNumber != null" >
         cus_number = #{cusNumber,jdbcType=VARCHAR},
       </if>
-      <if test="cusShares != null">
+      <if test="cusShares != null" >
         cus_shares = #{cusShares,jdbcType=INTEGER},
       </if>
-      <if test="cusTypeId != null">
+      <if test="cusTypeId != null" >
         cus_type_id = #{cusTypeId,jdbcType=VARCHAR},
       </if>
-      <if test="cusOwnership != null">
+      <if test="cusOwnership != null" >
         cus_ownership = #{cusOwnership,jdbcType=VARCHAR},
       </if>
-      <if test="cusIndustryId != null">
+      <if test="cusIndustryId != null" >
         cus_industry_id = #{cusIndustryId,jdbcType=INTEGER},
       </if>
-      <if test="cusEmployeesNum != null">
+      <if test="cusEmployeesNum != null" >
         cus_employees_num = #{cusEmployeesNum,jdbcType=INTEGER},
       </if>
-      <if test="cusAnnualIncome != null">
+      <if test="cusAnnualIncome != null" >
         cus_annual_income = #{cusAnnualIncome,jdbcType=VARCHAR},
       </if>
-      <if test="cusSic != null">
+      <if test="cusSic != null" >
         cus_sic = #{cusSic,jdbcType=VARCHAR},
       </if>
-      <if test="cusDes != null">
+      <if test="cusDes != null" >
         cus_des = #{cusDes,jdbcType=VARCHAR},
       </if>
-      <if test="isvalid != null">
+      <if test="isvalid != null" >
         isValid = #{isvalid,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.crm.crmsystem.dao.model.Customer">
-    update customer
-    set user_id = #{userId,jdbcType=INTEGER},
-      cus_name = #{cusName,jdbcType=VARCHAR},
-      cus_level = #{cusLevel,jdbcType=VARCHAR},
-      cus_phone = #{cusPhone,jdbcType=VARCHAR},
-      cus_address = #{cusAddress,jdbcType=VARCHAR},
-      cus_email = #{cusEmail,jdbcType=VARCHAR},
-      cus_parent_id = #{cusParentId,jdbcType=INTEGER},
-      cus_web = #{cusWeb,jdbcType=VARCHAR},
-      cus_number = #{cusNumber,jdbcType=VARCHAR},
-      cus_shares = #{cusShares,jdbcType=INTEGER},
-      cus_type_id = #{cusTypeId,jdbcType=VARCHAR},
-      cus_ownership = #{cusOwnership,jdbcType=VARCHAR},
-      cus_industry_id = #{cusIndustryId,jdbcType=INTEGER},
-      cus_employees_num = #{cusEmployeesNum,jdbcType=INTEGER},
-      cus_annual_income = #{cusAnnualIncome,jdbcType=VARCHAR},
-      cus_sic = #{cusSic,jdbcType=VARCHAR},
-      cus_des = #{cusDes,jdbcType=VARCHAR},
-      isValid = #{isvalid,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.crm.crmsystem.dao.model.Customer">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="cus_name" jdbcType="VARCHAR" property="cusName" />
-    <result column="cus_level" jdbcType="VARCHAR" property="cusLevel" />
-    <result column="cus_phone" jdbcType="VARCHAR" property="cusPhone" />
-    <result column="cus_address" jdbcType="VARCHAR" property="cusAddress" />
-    <result column="cus_email" jdbcType="VARCHAR" property="cusEmail" />
-    <result column="cus_parent_id" jdbcType="INTEGER" property="cusParentId" />
-    <result column="cus_web" jdbcType="VARCHAR" property="cusWeb" />
-    <result column="cus_number" jdbcType="VARCHAR" property="cusNumber" />
-    <result column="cus_shares" jdbcType="INTEGER" property="cusShares" />
-    <result column="cus_type_id" jdbcType="VARCHAR" property="cusTypeId" />
-    <result column="cus_ownership" jdbcType="VARCHAR" property="cusOwnership" />
-    <result column="cus_industry_id" jdbcType="INTEGER" property="cusIndustryId" />
-    <result column="cus_employees_num" jdbcType="INTEGER" property="cusEmployeesNum" />
-    <result column="cus_annual_income" jdbcType="VARCHAR" property="cusAnnualIncome" />
-    <result column="cus_sic" jdbcType="VARCHAR" property="cusSic" />
-    <result column="cus_des" jdbcType="VARCHAR" property="cusDes" />
-    <result column="isValid" jdbcType="INTEGER" property="isvalid" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, user_id, cus_name, cus_level, cus_phone, cus_address, cus_email, cus_parent_id, 
-    cus_web, cus_number, cus_shares, cus_type_id, cus_ownership, cus_industry_id, cus_employees_num, 
-    cus_annual_income, cus_sic, cus_des, isValid
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from customer
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from customer
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyProperty="id" parameterType="com.crm.crmsystem.dao.model.Customer" useGeneratedKeys="true">
-    insert into customer (user_id, cus_name, cus_level, 
-      cus_phone, cus_address, cus_email, 
-      cus_parent_id, cus_web, cus_number, 
-      cus_shares, cus_type_id, cus_ownership, 
-      cus_industry_id, cus_employees_num, cus_annual_income, 
-      cus_sic, cus_des, isValid
-      )
-    values (#{userId,jdbcType=INTEGER}, #{cusName,jdbcType=VARCHAR}, #{cusLevel,jdbcType=VARCHAR}, 
-      #{cusPhone,jdbcType=VARCHAR}, #{cusAddress,jdbcType=VARCHAR}, #{cusEmail,jdbcType=VARCHAR}, 
-      #{cusParentId,jdbcType=INTEGER}, #{cusWeb,jdbcType=VARCHAR}, #{cusNumber,jdbcType=VARCHAR}, 
-      #{cusShares,jdbcType=INTEGER}, #{cusTypeId,jdbcType=VARCHAR}, #{cusOwnership,jdbcType=VARCHAR}, 
-      #{cusIndustryId,jdbcType=INTEGER}, #{cusEmployeesNum,jdbcType=INTEGER}, #{cusAnnualIncome,jdbcType=VARCHAR}, 
-      #{cusSic,jdbcType=VARCHAR}, #{cusDes,jdbcType=VARCHAR}, #{isvalid,jdbcType=INTEGER}
-      )
-  </insert>
-  <insert id="insertSelective" keyProperty="id" parameterType="com.crm.crmsystem.dao.model.Customer" useGeneratedKeys="true">
-    insert into customer
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="cusName != null">
-        cus_name,
-      </if>
-      <if test="cusLevel != null">
-        cus_level,
-      </if>
-      <if test="cusPhone != null">
-        cus_phone,
-      </if>
-      <if test="cusAddress != null">
-        cus_address,
-      </if>
-      <if test="cusEmail != null">
-        cus_email,
-      </if>
-      <if test="cusParentId != null">
-        cus_parent_id,
-      </if>
-      <if test="cusWeb != null">
-        cus_web,
-      </if>
-      <if test="cusNumber != null">
-        cus_number,
-      </if>
-      <if test="cusShares != null">
-        cus_shares,
-      </if>
-      <if test="cusTypeId != null">
-        cus_type_id,
-      </if>
-      <if test="cusOwnership != null">
-        cus_ownership,
-      </if>
-      <if test="cusIndustryId != null">
-        cus_industry_id,
-      </if>
-      <if test="cusEmployeesNum != null">
-        cus_employees_num,
-      </if>
-      <if test="cusAnnualIncome != null">
-        cus_annual_income,
-      </if>
-      <if test="cusSic != null">
-        cus_sic,
-      </if>
-      <if test="cusDes != null">
-        cus_des,
-      </if>
-      <if test="isvalid != null">
-        isValid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="cusName != null">
-        #{cusName,jdbcType=VARCHAR},
-      </if>
-      <if test="cusLevel != null">
-        #{cusLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="cusPhone != null">
-        #{cusPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="cusAddress != null">
-        #{cusAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="cusEmail != null">
-        #{cusEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="cusParentId != null">
-        #{cusParentId,jdbcType=INTEGER},
-      </if>
-      <if test="cusWeb != null">
-        #{cusWeb,jdbcType=VARCHAR},
-      </if>
-      <if test="cusNumber != null">
-        #{cusNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="cusShares != null">
-        #{cusShares,jdbcType=INTEGER},
-      </if>
-      <if test="cusTypeId != null">
-        #{cusTypeId,jdbcType=VARCHAR},
-      </if>
-      <if test="cusOwnership != null">
-        #{cusOwnership,jdbcType=VARCHAR},
-      </if>
-      <if test="cusIndustryId != null">
-        #{cusIndustryId,jdbcType=INTEGER},
-      </if>
-      <if test="cusEmployeesNum != null">
-        #{cusEmployeesNum,jdbcType=INTEGER},
-      </if>
-      <if test="cusAnnualIncome != null">
-        #{cusAnnualIncome,jdbcType=VARCHAR},
-      </if>
-      <if test="cusSic != null">
-        #{cusSic,jdbcType=VARCHAR},
-      </if>
-      <if test="cusDes != null">
-        #{cusDes,jdbcType=VARCHAR},
-      </if>
-      <if test="isvalid != null">
-        #{isvalid,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.crm.crmsystem.dao.model.Customer">
-    update customer
-    <set>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="cusName != null">
-        cus_name = #{cusName,jdbcType=VARCHAR},
-      </if>
-      <if test="cusLevel != null">
-        cus_level = #{cusLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="cusPhone != null">
-        cus_phone = #{cusPhone,jdbcType=VARCHAR},
-      </if>
-      <if test="cusAddress != null">
-        cus_address = #{cusAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="cusEmail != null">
-        cus_email = #{cusEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="cusParentId != null">
-        cus_parent_id = #{cusParentId,jdbcType=INTEGER},
-      </if>
-      <if test="cusWeb != null">
-        cus_web = #{cusWeb,jdbcType=VARCHAR},
-      </if>
-      <if test="cusNumber != null">
-        cus_number = #{cusNumber,jdbcType=VARCHAR},
-      </if>
-      <if test="cusShares != null">
-        cus_shares = #{cusShares,jdbcType=INTEGER},
-      </if>
-      <if test="cusTypeId != null">
-        cus_type_id = #{cusTypeId,jdbcType=VARCHAR},
-      </if>
-      <if test="cusOwnership != null">
-        cus_ownership = #{cusOwnership,jdbcType=VARCHAR},
-      </if>
-      <if test="cusIndustryId != null">
-        cus_industry_id = #{cusIndustryId,jdbcType=INTEGER},
-      </if>
-      <if test="cusEmployeesNum != null">
-        cus_employees_num = #{cusEmployeesNum,jdbcType=INTEGER},
-      </if>
-      <if test="cusAnnualIncome != null">
-        cus_annual_income = #{cusAnnualIncome,jdbcType=VARCHAR},
-      </if>
-      <if test="cusSic != null">
-        cus_sic = #{cusSic,jdbcType=VARCHAR},
-      </if>
-      <if test="cusDes != null">
-        cus_des = #{cusDes,jdbcType=VARCHAR},
-      </if>
-      <if test="isvalid != null">
-        isValid = #{isvalid,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.crm.crmsystem.dao.model.Customer">
+  <update id="updateByPrimaryKey" parameterType="com.crm.crmsystem.dao.model.Customer" >
     update customer
     set user_id = #{userId,jdbcType=INTEGER},
       cus_name = #{cusName,jdbcType=VARCHAR},

@@ -14,4 +14,8 @@ public interface AddressMapper {
     int updateByPrimaryKeySelective(Address record);
 
     int updateByPrimaryKey(Address record);
+
+    //根据客户ID或者联系人ID查询地址
+    Address selAddByCusIdOrConId(Address address);
+
 }

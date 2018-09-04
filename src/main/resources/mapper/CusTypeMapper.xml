@@ -1,98 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.crm.crmsystem.dao.CusTypeMapper">
-  <resultMap id="BaseResultMap" type="com.crm.crmsystem.dao.model.CusType">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="custype_name" jdbcType="VARCHAR" property="custypeName" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.crm.crmsystem.dao.CusTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.crm.crmsystem.dao.model.CusType" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="custype_name" property="custypeName" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     id, custype_name
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from cus_type
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from cus_type
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyProperty="id" parameterType="com.crm.crmsystem.dao.model.CusType" useGeneratedKeys="true">
+  <insert id="insert" parameterType="com.crm.crmsystem.dao.model.CusType" useGeneratedKeys="true" keyProperty="id" >
     insert into cus_type (custype_name)
     values (#{custypeName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyProperty="id" parameterType="com.crm.crmsystem.dao.model.CusType" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.crm.crmsystem.dao.model.CusType" useGeneratedKeys="true" keyProperty="id" >
     insert into cus_type
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="custypeName != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="custypeName != null" >
         custype_name,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="custypeName != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="custypeName != null" >
         #{custypeName,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.crm.crmsystem.dao.model.CusType">
+  <update id="updateByPrimaryKeySelective" parameterType="com.crm.crmsystem.dao.model.CusType" >
     update cus_type
-    <set>
-      <if test="custypeName != null">
+    <set >
+      <if test="custypeName != null" >
         custype_name = #{custypeName,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.crm.crmsystem.dao.model.CusType">
-    update cus_type
-    set custype_name = #{custypeName,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.crm.crmsystem.dao.model.CusType">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="custype_name" jdbcType="VARCHAR" property="custypeName" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, custype_name
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from cus_type
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from cus_type
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" keyProperty="id" parameterType="com.crm.crmsystem.dao.model.CusType" useGeneratedKeys="true">
-    insert into cus_type (custype_name)
-    values (#{custypeName,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" keyProperty="id" parameterType="com.crm.crmsystem.dao.model.CusType" useGeneratedKeys="true">
-    insert into cus_type
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="custypeName != null">
-        custype_name,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="custypeName != null">
-        #{custypeName,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.crm.crmsystem.dao.model.CusType">
-    update cus_type
-    <set>
-      <if test="custypeName != null">
-        custype_name = #{custypeName,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.crm.crmsystem.dao.model.CusType">
+  <update id="updateByPrimaryKey" parameterType="com.crm.crmsystem.dao.model.CusType" >
     update cus_type
     set custype_name = #{custypeName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
