@@ -49,4 +49,20 @@
     set custype_name = #{custypeName,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selCusType" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from cus_type
+    where 
+    <if test="form.id!=null">
+      id = #{form.id,jdbcType=INTEGER}
+    </if>
+    <if test="form.custypeName!=null and form.custypeName !='' and form.id!=null">
+      AND custype_name = #{form.custypeName,jdbcType=VARCHAR}
+    </if>
+    <if test="form.custypeName!=null and form.custypeName !='' and form.id==null">
+       custype_name LIKE '%${form.custypeName}%'
+    </if>
+  </select>
 </mapper>
