@@ -1,6 +1,7 @@
-package com.crm.crmsystem.controller;
+package com.crm.crmsystem.H5Controller;
 
 import com.crm.crmsystem.constant.ResponseDataConstants;
+import com.crm.crmsystem.controller.UserController;
 import com.crm.crmsystem.dao.model.User;
 import com.jieyuechina.bdc.common.model.ResponseData;
 import net.sf.json.JSONObject;
