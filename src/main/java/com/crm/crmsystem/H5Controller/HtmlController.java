@@ -1,8 +1,11 @@
 package com.crm.crmsystem.H5Controller;
 
 import com.crm.crmsystem.constant.ResponseDataConstants;
+import com.crm.crmsystem.controller.CustomerController;
 import com.crm.crmsystem.controller.UserController;
+import com.crm.crmsystem.dao.model.Customer;
 import com.crm.crmsystem.dao.model.User;
+import com.crm.crmsystem.form.vo.PageForm;
 import com.jieyuechina.bdc.common.model.ResponseData;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ public class HtmlController {
 
   @Autowired
   private UserController userController;
+  @Autowired
+  private CustomerController customerController;
 
   @GetMapping("login")
   public String logon() {
@@ -46,7 +51,10 @@ public class HtmlController {
   }
 
   @GetMapping("customer")
-  public String customer() {
+  public String customer(HttpServletRequest request) {
+    PageForm<Customer> pageForm = new PageForm();
+    ResponseData<String> listCustomer = customerController.selAllCus(pageForm);
+    request.setAttribute("listCustomer", listCustomer);
     return "customer";
   }
 }
