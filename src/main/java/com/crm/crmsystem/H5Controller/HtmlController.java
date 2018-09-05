@@ -21,32 +21,32 @@ public class HtmlController {
   private UserController userController;
 
   @GetMapping("login")
-  public String logon(){
+  public String logon() {
 
     return "login";
   }
 
-  @GetMapping("abc")
-  public String abc(){
-
-    return "abc";
-  }
   @PostMapping("loginIn")
-  public String loginIn(User user, HttpServletRequest request){
+  public String loginIn(User user, HttpServletRequest request) {
 
-    JSONObject jsonUser =JSONObject.fromObject(user);
+    JSONObject jsonUser = JSONObject.fromObject(user);
 
-    System.out.println("用户登录请求报文:" + jsonUser );
+    System.out.println("用户登录请求报文:" + jsonUser);
     ResponseData<String> login = userController.login(user);
-    JSONObject loginUser =JSONObject.fromObject(login);
+    JSONObject loginUser = JSONObject.fromObject(login);
 
-    System.out.println("用户登录返回报文:" + loginUser );
+    System.out.println("用户登录返回报文:" + loginUser);
 
-    request.getSession().setAttribute("msg",login.getData());
-    if (login.getData().equals(ResponseDataConstants.OPERATE_SUCCESS)){
-      request.getSession().setAttribute("user",user);
+    request.getSession().setAttribute("msg", login.getData());
+    if (login.getData().equals(ResponseDataConstants.OPERATE_SUCCESS)) {
+      request.getSession().setAttribute("user", user);
       return "index";
     }
     return "login";
+  }
+
+  @GetMapping("customer")
+  public String customer() {
+    return "customer";
   }
 }
