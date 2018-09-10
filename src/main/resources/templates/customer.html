@@ -1,161 +1,233 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>品牌管理</title>
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+
+    <script src="https://code.jquery.com/jquery.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style-type: none;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a, .dropbtn {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #111;
+        }
+
+        /*li a:hover, .dropdown:hover .dropbtn {*/
+        /*background-color: #111;*/
+        /*}*/
+
+        .dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            min-width: 200px;
+            background-color: #F9F9F9;
+            position: absolute;
+            display: none;
+            box-shadow: 0px 8px 15px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #F1F1F1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /*.container-fluid ul li{*/
+        /*height: 30px;*/
+        /*}*/
+        .container-fluid ul a {
+            color: black;
+        }
+
+        .container-fluid ul li:hover {
+            background-color: white;
+        }
+    </style>
+
+
 </head>
-<body>
+<body class="hold-transition skin-red sidebar-mini" ng-app="crm" ng-controller="customerController">
+
+
+<ul>
+    <li><a href="#shop" class="active">在线商城</a></li>
+    <li><a href="#news">产品展示</a></li>
+    <div class="dropdown">
+        <a href="#" class="dropbtn">下拉菜单</a>
+        <div class="dropdown-content">
+            <a href="#">子菜单 1</a>
+            <a href="#">子菜单 2</a>
+            <a href="#">子菜单 3</a>
+        </div>
+    </div>
+</ul>
+
 
 <div class="container-fluid">
     <div class="row-fluid">
         <div class="span12">
             <div class="navbar">
-                <div class="navbar-inner">
-                    <div class="container-fluid">
-                        <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar"><span
-                                class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a> <a href="#"
-                                                                                                                            class="brand">网站名</a>
-                        <div class="nav-collapse collapse navbar-responsive-collapse">
-                            <ul class="nav">
-                                <li class="active">
-                                    <a href="#">主页</a>
-                                </li>
-                                <li>
-                                    <a href="#">链接</a>
-                                </li>
-                                <li>
-                                    <a href="#">链接</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">下拉菜单<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#">下拉导航1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">下拉导航2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">其他</a>
-                                        </li>
-                                        <li class="divider">
-                                        </li>
-                                        <li class="nav-header">
-                                            标签
-                                        </li>
-                                        <li>
-                                            <a href="#">链接1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">链接2</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <ul class="nav pull-right">
-                                <li>
-                                    <a href="#">右边链接</a>
-                                </li>
-                                <li class="divider-vertical">
-                                </li>
-                                <li class="dropdown">
-                                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">下拉菜单<strong class="caret"></strong></a>
-                                    <ul class="dropdown-menu">
-                                        <li>
-                                            <a href="#">下拉导航1</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">下拉导航2</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">其他</a>
-                                        </li>
-                                        <li class="divider">
-                                        </li>
-                                        <li>
-                                            <a href="#">链接3</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </div>
-                </div>
 
             </div>
             <div class="row-fluid">
-                <div class="span4">
-                    <form class="form-search">
-                        <input class="input-medium search-query" type="text"/>
-                        <button type="submit" class="btn">查找</button>
-                    </form>
-                </div>
-                <div class="span8">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th>
-                                客户名称
-                            </th>
-                            <th>
-                                电话
-                            </th>
-                            <th>
-                                网站
-                            </th>
-                            <th>
-                                客户所有者
-                            </th>
-                        </tr>
-                        </thead>
-
-
-                        <tbody>
-                        <tr ng-repeat="entity in listCustomer">
-                            <td><input type="checkbox" ng-click="updateSelection($event,entity.id)"></td>
-                            <td>{{entity.cusName}}</td>
-                            <td>{{entity.cusPhone}}</td>
-                            <td>{{entity.cusWeb}}</td>
-                            <td>{{entity.user.username}}</td>
-                            <!--<td class="text-center">-->
-                            <!--<button type="button" class="btn bg-olive btn-xs" ng-click="findById(entity.id)" data-toggle="modal" data-target="#editModal"  >修改</button>-->
-                            <!--</td>-->
-                        </tr>
-
-                        </tbody>
-
-
-                    </table>
-                    <div class="pagination pagination-right">
-                        <ul>
-                            <li>
-                                <a href="#">上一页</a>
-                            </li>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">5</a>
-                            </li>
-                            <li>
-                                <a href="#">下一页</a>
-                            </li>
-                        </ul>
+                <div class="pull-right">
+                    <div class="form-group form-inline">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal"
+                                    ng-click="entity={}"><i class="fa fa-file-o"></i> 新建
+                            </button>
+                            <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i class="fa fa-trash-o"></i> 删除
+                            </button>
+                            <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
+                                    class="fa fa-refresh"></i> 刷新
+                            </button>
+                        </div>
                     </div>
                 </div>
+
+
+                <!-- 数据表格 -->
+                <div class="table-box">
+                    <div class="box-tools pull-right">
+                        <div class="has-feedback">
+                            客户名称:<input type="text" ng-model="searchEntity.name"> 客户首字母:<input type="text"
+                                                                                               ng-model="searchEntity.firstChar">
+                            <input class="btn btn-default" ng-click="reloadList()" type="button" value="查询">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--数据列表-->
+                <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+                    <thead>
+                    <tr>
+                        <th class="" style="padding-right:0px">
+                            <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                        </th>
+                        <th class="sorting_asc">客户名称</th>
+                        <th class="sorting">联系方式</th>
+                        <th class="sorting">网站</th>
+                        <th class="text-center">客户所有者</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="entity in listCustomer">
+                        <!--<td><input type="checkbox" ng-click="updateSelection($event,entity.id)"></td>-->
+
+
+
+                        <td>{{entity.cusName}}</td>
+                        <td>{{entity.cusPhone}}</td>
+                        <td>{{entity.cusWeb}}</td>
+                        <td>{{entity.user.username}}</td>
+
+
+                        <!--<td class="text-center">-->
+                        <!--<button type="button" class="btn bg-olive btn-xs" ng-click="findById(entity.id)" data-toggle="modal" data-target="#editModal"  >修改</button>-->
+                        <!--</td>-->
+                    </tr>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
+
+
+<div class="container-fluid">
+    <div class="pull-right">
+        <div>
+            <div>
+                <ul style="background-color: white;color: black">
+                    <li>
+                        <a href="#">上一页</a>
+                    </li>
+                    <li>
+                        <a href="#">1</a>
+                    </li>
+                    <li>
+                        <a href="#">2</a>
+                    </li>
+                    <li>
+                        <a href="#">3</a>
+                    </li>
+                    <li>
+                        <a href="#">下一页</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 编辑窗口 -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">品牌编辑</h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-bordered table-striped" width="800px">
+                    <tr>
+                        <td>品牌名称</td>
+                        <td><input ng-model="entity.name" class="form-control" placeholder="品牌名称"></td>
+                    </tr>
+                    <tr>
+                        <td>首字母</td>
+                        <td><input ng-model="entity.firstChar" class="form-control" placeholder="首字母"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" aria-hidden="true" ng-click="save()">保存</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>

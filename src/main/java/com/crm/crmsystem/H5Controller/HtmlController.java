@@ -52,7 +52,9 @@ public class HtmlController {
 
   @GetMapping("customer")
   public String customer(HttpServletRequest request) {
+    Customer customer = new Customer();
     PageForm<Customer> pageForm = new PageForm();
+    pageForm.setForm(customer);
     ResponseData<String> listCustomer = customerController.selAllCus(pageForm);
     request.setAttribute("listCustomer", listCustomer);
     return "customer";
