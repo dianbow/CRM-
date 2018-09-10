@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -59,5 +60,15 @@ public class HtmlController {
     ResponseData<String> listCustomer = customerController.selAllCus(pageForm);
     request.setAttribute("listCustomer", listCustomer);
     return "customer";
+  }
+  @PostMapping("customerPage")
+  @ResponseBody
+  public ResponseData<String> customer(int pageIndex) {
+    PageForm<Customer> pageForm = new PageForm();
+    Customer customer=new Customer();
+    pageForm.setForm(customer);
+    pageForm.setPageIndex(pageIndex);
+
+    return customerController.selAllCus(pageForm);
   }
 }

@@ -79,6 +79,12 @@
         .container-fluid ul li:hover {
             background-color: white;
         }
+
+        .selected_li{
+            color: #01ff70;
+            font-weight: bold;
+            font-size: 18px;
+        }
     </style>
 
 
@@ -156,14 +162,17 @@
                         <!--<td>{{entity.user.username}}</td>-->
                     <!--</tr>-->
 
-                    <tr th:each="test:${listCustomer.data}">
+                    <tr th:each="test:${listCustomer.data}" class="tr">
                         <td th:text="${testStat.index+1}"></td>
                         <td th:text="${test.cusName}"></td>
                         <td th:text="${test.cusPhone}"></td>
                         <td th:text="${test.cusWeb}"></td>
                         <td th:text="${test.user.username}"></td>
                     </tr>
-
+                    <tr class="tr_hide" style="display: none">
+                        <td class="index"></td><td class="cusName"></td><td class="cusPhone"></td><td class="cusWeb"></td>
+                        <td class="user.username"></td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -178,19 +187,7 @@
             <div>
                 <ul style="background-color: white;color: black">
                     <li>
-                        <a href="#">上一页</a>
-                    </li>
-                    <li>
-                        <a href="#">1</a>
-                    </li>
-                    <li>
-                        <a href="#">2</a>
-                    </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">下一页</a>
+                        <a th:href="${'/crm/page/customerPage?'+listCustomer.page.currentPage}">上一页</a>
                     </li>
                 </ul>
             </div>
@@ -226,6 +223,71 @@
         </div>
     </div>
 </div>
-
 </body>
+<script th:inline="javascript">
+    var currentPage=1;
+    var listCustomer= [[${listCustomer.page}]];
+    $(".container-fluid .pull-right ul").empty();
+    var pageNum=Math.ceil(listCustomer.totalRecords/10);
+    $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(-1)'>上一页</a></li>")
+    for(var i=1;i<=pageNum;i++){
+        $(".container-fluid .pull-right ul").append(" <li><a onclick='goToIndex(this)' aim_index="+i+">"+i+"</a></li>")
+    }
+    $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(1)'>下一页</a></li>");
+
+    function goTo(val) {
+        currentPage=currentPage+val;
+//        alert(currentPage);
+        $(".container-fluid .pull-right ul li a[aim_index='"+currentPage+"']").click();
+//        goToIndex(currentPage)
+    }
+    function goToIndex(obj) {
+        currentPage=parseInt(obj.innerHTML);
+        $(obj).closest("ul").find("a").removeClass("selected_li")
+        $(obj).addClass("selected_li")
+
+//        alert(obj.innerHTML)
+        var result=[];
+        $.ajax({
+            type: "POST",
+            url: "/crm/page/customerPage",
+            data: {"pageIndex":currentPage},
+            dataType: "json",
+            async:false,
+            success: function(data){
+                $("#dataList .node .tr").remove();
+                if(data&&data.code==200){
+                    var tr_hide=$("#dataList .tr_hide");
+                    $.each(data.data,function (n,e) {
+                        var tr=tr_hide.clone();
+                        tr.find("td").each(function () {
+                            $(this).html(returnObjVal(e,$(this).attr("class").split(".")));
+                        })
+                        tr.find(".index").html(n);
+                        tr.insertBefore(tr_hide).removeClass("tr_hide").addClass("tr").show();
+                    })
+                }
+            },
+            error:function () {
+
+            }
+        });
+        return result;
+
+    }
+    function returnObjVal(obj,array) {
+        if(array.length==1){
+            return obj[array[0]];
+        }
+        return returnObjVal(obj[array[0]],subArray(array,1))
+    }
+    function subArray(array,form) {
+        var gg=[];
+        for(var i=form;i<array.length;i++){
+            gg.push(array[i])
+        }
+        return gg;
+    }
+</script>
+
 </html>
