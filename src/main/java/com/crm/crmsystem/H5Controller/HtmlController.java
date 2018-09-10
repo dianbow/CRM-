@@ -7,6 +7,7 @@ import com.crm.crmsystem.dao.model.Customer;
 import com.crm.crmsystem.dao.model.User;
 import com.crm.crmsystem.form.vo.PageForm;
 import com.jieyuechina.bdc.common.model.ResponseData;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 
+@Slf4j
 @Controller
 @RequestMapping("crm/page/")
 public class HtmlController {
@@ -35,12 +37,11 @@ public class HtmlController {
   public String loginIn(User user, HttpServletRequest request) {
 
     JSONObject jsonUser = JSONObject.fromObject(user);
+    log.info("用户登录请求报文:{}",jsonUser);
 
-    System.out.println("用户登录请求报文:" + jsonUser);
     ResponseData<String> login = userController.login(user);
     JSONObject loginUser = JSONObject.fromObject(login);
-
-    System.out.println("用户登录返回报文:" + loginUser);
+    log.info("用户登录返回报文:{}",loginUser);
 
     request.getSession().setAttribute("msg", login.getData());
     if (login.getData().equals(ResponseDataConstants.OPERATE_SUCCESS)) {
@@ -53,6 +54,8 @@ public class HtmlController {
   @GetMapping("customer")
   public String customer(HttpServletRequest request) {
     PageForm<Customer> pageForm = new PageForm();
+    Customer customer=new Customer();
+    pageForm.setForm(customer);
     ResponseData<String> listCustomer = customerController.selAllCus(pageForm);
     request.setAttribute("listCustomer", listCustomer);
     return "customer";
