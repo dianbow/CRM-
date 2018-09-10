@@ -163,14 +163,14 @@
                     <!--</tr>-->
 
                     <tr th:each="test:${listCustomer.data}" class="tr">
-                        <td th:text="${testStat.index+1}"></td>
+                        <td th:text="${test.id}"></td>
                         <td th:text="${test.cusName}"></td>
                         <td th:text="${test.cusPhone}"></td>
                         <td th:text="${test.cusWeb}"></td>
                         <td th:text="${test.user.username}"></td>
                     </tr>
                     <tr class="tr_hide" style="display: none">
-                        <td class="index"></td><td class="cusName"></td><td class="cusPhone"></td><td class="cusWeb"></td>
+                        <td class="id"></td><td class="cusName"></td><td class="cusPhone"></td><td class="cusWeb"></td>
                         <td class="user.username"></td>
                     </tr>
                     </tbody>
@@ -263,7 +263,6 @@
                         tr.find("td").each(function () {
                             $(this).html(returnObjVal(e,$(this).attr("class").split(".")));
                         })
-                        tr.find(".index").html(n);
                         tr.insertBefore(tr_hide).removeClass("tr_hide").addClass("tr").show();
                     })
                 }
