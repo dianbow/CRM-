@@ -2,7 +2,9 @@ package com.crm.crmsystem.service;
 
 import com.crm.crmsystem.constant.ResponseDataConstants;
 import com.crm.crmsystem.dao.CustomerMapper;
+import com.crm.crmsystem.dao.UserMapper;
 import com.crm.crmsystem.dao.model.Customer;
+import com.crm.crmsystem.dao.model.User;
 import com.crm.crmsystem.form.vo.PageForm;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -19,6 +21,8 @@ public class CustomerService {
 
   @Autowired
   private CustomerMapper customerMapper;
+  @Autowired
+  private UserMapper userMapper;
   public ResponseData<String> addCus(Customer customer) {
 
     if (customer.getUserId()==null||customer.getUserId().equals("")){
@@ -48,6 +52,12 @@ public class CustomerService {
 
     Page page = PageHelper.startPage(pageForm.getPageIndex(), pageForm.getPageSize());
     List<Customer> customers = customerMapper.selectAllCustomer(pageForm.getForm());
+
+    for (int i=0; i<customers.size();i++){
+      Customer customer = customers.get(i);
+      User user = userMapper.selectByPrimaryKey(customer.getUserId());
+      customer.setUser(user);
+    }
     PageInfo pageInfo = new PageInfo();
     pageInfo.setTotalRecords(Double.valueOf(page.getTotal()).intValue());
     return ResponseData.ok(customers,pageInfo);

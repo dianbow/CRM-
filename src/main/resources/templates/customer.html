@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +9,6 @@
     <script src="https://code.jquery.com/jquery.js"></script>
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
 
     <style>
         * {
@@ -149,21 +148,20 @@
                         <th class="text-center">客户所有者</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr ng-repeat="entity in listCustomer">
-                        <!--<td><input type="checkbox" ng-click="updateSelection($event,entity.id)"></td>-->
+                    <tbody class="node">
+                    <!--<tr ng-repeat="entity in listCustomer">-->
+                        <!--<td>{{entity.cusName}}</td>-->
+                        <!--<td>{{entity.cusPhone}}</td>-->
+                        <!--<td>{{entity.cusWeb}}</td>-->
+                        <!--<td>{{entity.user.username}}</td>-->
+                    <!--</tr>-->
 
-
-
-                        <td>{{entity.cusName}}</td>
-                        <td>{{entity.cusPhone}}</td>
-                        <td>{{entity.cusWeb}}</td>
-                        <td>{{entity.user.username}}</td>
-
-
-                        <!--<td class="text-center">-->
-                        <!--<button type="button" class="btn bg-olive btn-xs" ng-click="findById(entity.id)" data-toggle="modal" data-target="#editModal"  >修改</button>-->
-                        <!--</td>-->
+                    <tr th:each="test:${listCustomer.data}">
+                        <td th:text="${testStat.index+1}"></td>
+                        <td th:text="${test.cusName}"></td>
+                        <td th:text="${test.cusPhone}"></td>
+                        <td th:text="${test.cusWeb}"></td>
+                        <td th:text="${test.user.username}"></td>
                     </tr>
 
                     </tbody>
