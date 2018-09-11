@@ -119,7 +119,8 @@
                             <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal"
                                     ng-click="entity={}"><i class="fa fa-file-o"></i> 新建
                             </button>
-                            <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i class="fa fa-trash-o"></i> 删除
+                            <button type="button" class="btn btn-default" title="删除" onclick="delCus()">
+                                <i class="fa fa-trash-o"></i> 删除
                             </button>
                             <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
                                     class="fa fa-refresh"></i> 刷新
@@ -150,9 +151,10 @@
                     <thead>
                     <tr>
                         <th class="" style="padding-right:0px">
-                            <!--<input id="selall" type="checkbox" class="icheckbox_square-blue">全选-->
-                            客户ID
+                            <input id="selall" type="checkbox" name="chkItem" class="icheckbox_square-blue" onclick="quanxuan()">全选
+
                         </th>
+                        <th class="sorting">客户ID</th>
                         <th class="sorting_asc">客户名称</th>
                         <th class="sorting">联系方式</th>
                         <th class="sorting">网站</th>
@@ -165,6 +167,9 @@
                     </thead>
                     <tbody class="node">
                     <tr th:each="test:${listCustomer.data}" class="tr">
+                        <td >
+                            <input type="checkbox" class="icheckbox_square-blue" th:value="${test.id}">
+                        </td>
                         <td th:text="${test.id}"></td>
                         <td th:text="${test.cusName}"></td>
                         <td th:text="${test.cusPhone}"></td>
@@ -176,9 +181,13 @@
                         <td th:text="${test.user}?${test.user.username}:''"></td>
                     </tr>
                     <tr class="tr_hide" style="display: none">
-                        <td class="id"></td><td class="cusName"></td><td class="cusPhone"></td><td class="cusWeb"></td>
-                        <td class="cusAddress"></td><td class="cusParentId"></td><td class="cusLevel"></td><td class="cusOwnership"></td>
-                        <td class="user.username"></td>
+                        <td><input type="checkbox" class="icheckbox_square-blue" aim_key="id"></td>
+                        <td aim_key="id"></td><td aim_key="cusName"></td><td aim_key="cusPhone"></td><td aim_key="cusWeb"></td>
+                        <td aim_key="cusAddress"></td>
+                        <td aim_key="cusParentId">
+                        </td><td aim_key="cusLevel"></td><td
+                            aim_key="cusOwnership"></td>
+                        <td aim_key="user.username"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -241,7 +250,8 @@
             $(".container-fluid .pull-right ul").append(" <li><a onclick='goToIndex(this)' aim_index="+i+">"+i+"</a></li>")
         }
     }
-    $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(1)'>下一页</a></li>");
+    $(".container-fluid .pull-right ul").append("<li><a onclick='goTo(1)'>下一页</a></li>");
+
 
     function goTo(val) {
         if (currentPage==1&&val<0){
@@ -258,6 +268,7 @@
         $(".container-fluid .pull-right ul li a[aim_index='"+currentPage+"']").click();
     }
     function goToIndex(obj) {
+
 
         var cusName=document.getElementById("cus-Name").value;
         var username=document.getElementById("user-name").value;
@@ -282,8 +293,12 @@
                     $.each(data.data,function (n,e) {
                         var tr=tr_hide.clone();
                         tr.find("td").each(function () {
-                            $(this).html(returnObjVal(e,$(this).attr("class").split(".")));
+                            var aim_key=$(this).attr("aim_key");
+                            if(aim_key){
+                                $(this).html(returnObjVal(e,aim_key.split(".")));
+                            }
                         })
+                        tr.find("input[type=checkbox]").val(returnObjVal(e,tr.find("input[type=checkbox]").attr("aim_key").split(".")));
                         tr.insertBefore(tr_hide).removeClass("tr_hide").addClass("tr").show();
                     })
                 }
@@ -308,6 +323,74 @@
         }
         return gg;
     }
+
+    function quanxuan() {
+
+//        $("input[type='checkbox']").bind("click", function () {
+            $("input[type='checkbox']").prop("checked", "checked");
+//        });
+//        $("input[name='chkItem']").click(function() {
+//            var $subs = $("input[name='chkItem']");
+//            $("input[type='checkbox']").prop("checked","");
+//        });
+    }
+    function delCus() {
+        var arrObjs=[];
+            $("input[type='checkbox' ]:checked").each(function () {
+                arrObjs.push($(this).val());
+            })
+//        alert(arrObjs);
+
+        $("input[type='checkbox']").prop("checked", "");
+        $.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "/crm/page/delCustomer",
+            data: JSON.stringify(arrObjs),
+            dataType: "json",
+            async:false,
+            success: function(data){
+                $("#dataList .node .tr").remove();
+                if(data&&data.code==200){
+
+                    $(".container-fluid .pull-right ul").empty();
+                    var pageNum=Math.ceil(data.page.totalRecords/10);
+                    $(".container-fluid .pull-right ul").append(" <li><a>共"+pageNum+"页</a></li>")
+                    $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(0)'>首页</a></li>")
+                    $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(-1)'>上一页</a></li>")
+                    for(var i=1;i<=pageNum;i++){
+                        if (i==1){
+                            $(".container-fluid .pull-right ul").append(" <li class='selected_li'><a onclick='goToIndex(this)' aim_index="+i+">"+i+"</a></li>")
+                        }else {
+                            $(".container-fluid .pull-right ul").append(" <li><a onclick='goToIndex(this)' aim_index="+i+">"+i+"</a></li>")
+                        }
+                    }
+                    $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(1)'>下一页</a></li>");
+
+                    var tr_hide=$("#dataList .tr_hide");
+                    $.each(data.data,function (n,e) {
+                        var tr=tr_hide.clone();
+                        tr.find("td").each(function () {
+                            var aim_key=$(this).attr("aim_key");
+                            if(aim_key){
+                                $(this).html(returnObjVal(e,aim_key.split(".")));
+                            }
+                        })
+                        tr.find("input[type=checkbox]").val(returnObjVal(e,tr.find("input[type=checkbox]").attr("aim_key").split(".")));
+                        tr.insertBefore(tr_hide).removeClass("tr_hide").addClass("tr").show();
+                    })
+                    goToIndex(currentPage);
+                }
+            },
+            error:function () {
+
+            }
+
+        });
+        return result;
+
+    }
 </script>
+
 
 </html>

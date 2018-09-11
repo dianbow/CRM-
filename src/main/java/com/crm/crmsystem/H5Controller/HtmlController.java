@@ -11,13 +11,12 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotBlank;
+import java.lang.reflect.Array;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -121,5 +120,23 @@ public class HtmlController {
     }
     request.setAttribute("listCustomer", listCustomer);
     return "customer";
+  }
+  /**
+   * 删除客户
+   */
+  @PostMapping("delCustomer")
+  @ResponseBody
+  public ResponseData<String> delCustomer(@RequestBody List<String> arr) {
+
+    for (int i=0; i<arr.size();i++){
+      if (!arr.get(i).equals("on")){
+        customerController.delCus(Integer.parseInt(arr.get(i)));
+      }
+    }
+    PageForm<Customer> pageForm = new PageForm();
+    Customer customer=new Customer();
+    pageForm.setForm(customer);
+    ResponseData<String> listCustomer = customerController.selAllCus(pageForm);
+    return  listCustomer;
   }
 }
