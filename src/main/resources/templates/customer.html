@@ -134,9 +134,10 @@
                     <div class="box-tools pull-right">
                         <div class="has-feedback">
                             <form action="/crm/page/queryCustomerPage" method="post">
+                             <a th:href="@{/crm/page/customer}" ><button class="btn btn-default"  type="button">清空</button></a>
 
-                            客户名称:<input type="text" name="cusName">
-                            所属用户:<input type="text" name="user.username">
+                            客户名称:<input id="cus-Name" type="text" name="cusName" th:value="${cusName}">
+                            所属用户:<input id="user-name" type="text" name="user.username" th:value="${username}" >
                             <input class="btn btn-default"  type="submit" value="查询">
                             </form>
                         </div>
@@ -149,11 +150,16 @@
                     <thead>
                     <tr>
                         <th class="" style="padding-right:0px">
-                            <input id="selall" type="checkbox" class="icheckbox_square-blue">
+                            <!--<input id="selall" type="checkbox" class="icheckbox_square-blue">全选-->
+                            客户ID
                         </th>
                         <th class="sorting_asc">客户名称</th>
                         <th class="sorting">联系方式</th>
                         <th class="sorting">网站</th>
+                        <th class="sorting">地址</th>
+                        <th class="sorting">父客户</th>
+                        <th class="sorting">客户级别</th>
+                        <th class="sorting">公司所有权</th>
                         <th class="text-center">客户所有者</th>
                     </tr>
                     </thead>
@@ -163,10 +169,15 @@
                         <td th:text="${test.cusName}"></td>
                         <td th:text="${test.cusPhone}"></td>
                         <td th:text="${test.cusWeb}"></td>
-                        <td th:text="${test.user.username}"></td>
+                        <td th:text="${test.cusAddress}"></td>
+                        <td th:text="${test.cusPar}?${test.cusPar.cusName}:''"></td>
+                        <td th:text="${test.cusLevel}"></td>
+                        <td th:text="${test.cusOwnership}"></td>
+                        <td th:text="${test.user}?${test.user.username}:''"></td>
                     </tr>
                     <tr class="tr_hide" style="display: none">
                         <td class="id"></td><td class="cusName"></td><td class="cusPhone"></td><td class="cusWeb"></td>
+                        <td class="cusAddress"></td><td class="cusParentId"></td><td class="cusLevel"></td><td class="cusOwnership"></td>
                         <td class="user.username"></td>
                     </tr>
                     </tbody>
@@ -221,6 +232,7 @@
     $(".container-fluid .pull-right ul").empty();
     var pageNum=Math.ceil(listCustomer.totalRecords/10);
     $(".container-fluid .pull-right ul").append(" <li><a>共"+pageNum+"页</a></li>")
+    $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(0)'>首页</a></li>")
     $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(-1)'>上一页</a></li>")
     for(var i=1;i<=pageNum;i++){
         if (i==1){
@@ -238,10 +250,18 @@
         if (currentPage==pageNum&&val>0){
             return;
         }
-        currentPage=currentPage+val;
+        if (val==0){
+            currentPage=1;
+        }else {
+            currentPage=currentPage+val;
+        }
         $(".container-fluid .pull-right ul li a[aim_index='"+currentPage+"']").click();
     }
     function goToIndex(obj) {
+
+        var cusName=document.getElementById("cus-Name").value;
+        var username=document.getElementById("user-name").value;
+
         currentPage=parseInt(obj.innerHTML);
         $(".container-fluid .pull-right ul li").removeClass("selected_li")
         $(obj).closest("ul").find("a").removeClass("selected_li")
@@ -252,7 +272,7 @@
         $.ajax({
             type: "POST",
             url: "/crm/page/customerPage",
-            data: {"pageIndex":currentPage},
+            data: {"pageIndex":currentPage,"cusName":cusName,"username":username},
             dataType: "json",
             async:false,
             success: function(data){

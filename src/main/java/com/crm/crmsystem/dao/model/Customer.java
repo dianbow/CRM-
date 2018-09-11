@@ -49,6 +49,9 @@ public class Customer implements Serializable {
     //客户所属联系人
     private User user;
 
+    //父客户
+    private Customer cusPar;
+
     private static final long serialVersionUID = 1L;
 
 }

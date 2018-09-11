@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.NotBlank;
 
 @Slf4j
 @Controller
@@ -78,15 +79,23 @@ public class HtmlController {
   }
 
   /**
-   * 客户分页
+   * 客户分页+条件查询
    * @param pageIndex
    * @return
    */
   @PostMapping("customerPage")
   @ResponseBody
-  public ResponseData<String> customer(int pageIndex) {
+  public ResponseData<String> customer(int pageIndex,String cusName,String username) {
     PageForm<Customer> pageForm = new PageForm();
     Customer customer=new Customer();
+    if (cusName!=null&&cusName!=""){
+      customer.setCusName(cusName);
+    }
+    if (username!=null&&username!=""){
+      User user=new User();
+      user.setUsername(username);
+      customer.setUser(user);
+    }
     pageForm.setForm(customer);
     pageForm.setPageIndex(pageIndex);
     return customerController.selAllCus(pageForm);
@@ -99,6 +108,17 @@ public class HtmlController {
     PageForm<Customer> pageForm = new PageForm();
     pageForm.setForm(customer);
     ResponseData<String> listCustomer = customerController.selAllCus(pageForm);
+
+    String cusName = customer.getCusName();
+    if (cusName!=null&&cusName!=""){
+      request.setAttribute("cusName", cusName);
+    }
+    if (customer.getUser()!=null){
+      String username = customer.getUser().getUsername();
+      if (username!=null&&username!=""){
+        request.setAttribute("username", username);
+      }
+    }
     request.setAttribute("listCustomer", listCustomer);
     return "customer";
   }

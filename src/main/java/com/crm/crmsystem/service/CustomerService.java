@@ -53,7 +53,9 @@ public class CustomerService {
     if (pageForm.getForm().getUser()!=null){
       if (pageForm.getForm().getUser().getUsername()!=null&&pageForm.getForm().getUser().getUsername()!=""){
         User user = userMapper.selectUserByUsername(pageForm.getForm().getUser().getUsername());
+        if(user!=null){
         pageForm.getForm().setUserId(user.getId());
+        }
       }
     }
     Page page = PageHelper.startPage(pageForm.getPageIndex(), pageForm.getPageSize());
@@ -62,7 +64,13 @@ public class CustomerService {
     for (int i=0; i<customers.size();i++){
       Customer customer = customers.get(i);
       User user = userMapper.selectByPrimaryKey(customer.getUserId());
-      customer.setUser(user);
+      if (user!=null){
+        customer.setUser(user);
+      }
+      Customer customer1 = customerMapper.selectByPrimaryKey(customer.getCusParentId());
+      if (customer1!=null){
+        customer.setCusPar(customer1);
+      }
     }
     PageInfo pageInfo = new PageInfo();
     pageInfo.setTotalRecords(Double.valueOf(page.getTotal()).intValue());
