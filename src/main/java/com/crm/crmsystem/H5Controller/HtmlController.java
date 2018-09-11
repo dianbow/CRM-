@@ -28,12 +28,22 @@ public class HtmlController {
   @Autowired
   private CustomerController customerController;
 
+  /**
+   * 跳转登录页
+   * @return
+   */
   @GetMapping("login")
   public String logon() {
 
     return "login";
   }
 
+  /**
+   * 用户登录
+   * @param user
+   * @param request
+   * @return
+   */
   @PostMapping("loginIn")
   public String loginIn(User user, HttpServletRequest request) {
 
@@ -52,6 +62,11 @@ public class HtmlController {
     return "login";
   }
 
+  /**
+   * 跳转客户列表页
+   * @param request
+   * @return
+   */
   @GetMapping("customer")
   public String customer(HttpServletRequest request) {
     PageForm<Customer> pageForm = new PageForm();
@@ -61,6 +76,12 @@ public class HtmlController {
     request.setAttribute("listCustomer", listCustomer);
     return "customer";
   }
+
+  /**
+   * 客户分页
+   * @param pageIndex
+   * @return
+   */
   @PostMapping("customerPage")
   @ResponseBody
   public ResponseData<String> customer(int pageIndex) {
@@ -68,7 +89,17 @@ public class HtmlController {
     Customer customer=new Customer();
     pageForm.setForm(customer);
     pageForm.setPageIndex(pageIndex);
-
     return customerController.selAllCus(pageForm);
+  }
+  /**
+   * 客户条件查询
+   */
+  @PostMapping("queryCustomerPage")
+  public String queryCustomerPage(Customer customer,HttpServletRequest request) {
+    PageForm<Customer> pageForm = new PageForm();
+    pageForm.setForm(customer);
+    ResponseData<String> listCustomer = customerController.selAllCus(pageForm);
+    request.setAttribute("listCustomer", listCustomer);
+    return "customer";
   }
 }

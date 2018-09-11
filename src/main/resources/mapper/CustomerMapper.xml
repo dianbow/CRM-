@@ -261,17 +261,17 @@
     <if test="form.cusAddress != null and form.cusAddress != ''">
       and cus_address like '%${form.cusAddress}%'
     </if>
-    <if test="form.userId != null ">
-      and user_id = {form.userId}
-    </if>
     <if test="form.cusTypeId != null ">
-      and cus_type_id = {form.cusTypeId}
+      and cus_type_id = #{form.cusTypeId}
     </if>
     <if test="form.cusIndustryId != null ">
-      and cus_industry_id = {form.cusIndustryId}
+      and cus_industry_id = #{form.cusIndustryId}
     </if>
     <if test="form.cusParentId != null ">
-      and cus_parent_id = {form.cusParentId}
+      and cus_parent_id = #{form.cusParentId}
+    </if>
+    <if test="form.userId != null ">
+      and user_id = #{form.userId}
     </if>
 
   </select>

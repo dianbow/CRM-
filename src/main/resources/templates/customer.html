@@ -81,9 +81,9 @@
         }
 
         .selected_li{
-            color: #01ff70;
+            color: #33da69;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
         }
     </style>
 
@@ -133,9 +133,12 @@
                 <div class="table-box">
                     <div class="box-tools pull-right">
                         <div class="has-feedback">
-                            客户名称:<input type="text" ng-model="searchEntity.name"> 客户首字母:<input type="text"
-                                                                                               ng-model="searchEntity.firstChar">
-                            <input class="btn btn-default" ng-click="reloadList()" type="button" value="查询">
+                            <form action="/crm/page/queryCustomerPage" method="post">
+
+                            客户名称:<input type="text" name="cusName">
+                            所属用户:<input type="text" name="user.username">
+                            <input class="btn btn-default"  type="submit" value="查询">
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -155,13 +158,6 @@
                     </tr>
                     </thead>
                     <tbody class="node">
-                    <!--<tr ng-repeat="entity in listCustomer">-->
-                        <!--<td>{{entity.cusName}}</td>-->
-                        <!--<td>{{entity.cusPhone}}</td>-->
-                        <!--<td>{{entity.cusWeb}}</td>-->
-                        <!--<td>{{entity.user.username}}</td>-->
-                    <!--</tr>-->
-
                     <tr th:each="test:${listCustomer.data}" class="tr">
                         <td th:text="${test.id}"></td>
                         <td th:text="${test.cusName}"></td>
@@ -179,23 +175,18 @@
         </div>
     </div>
 </div>
-
-
 <div class="container-fluid">
     <div class="pull-right">
         <div>
             <div>
                 <ul style="background-color: white;color: black">
                     <li>
-                        <a th:href="${'/crm/page/customerPage?'+listCustomer.page.currentPage}">上一页</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-
-
 <!-- 编辑窗口 -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -229,24 +220,34 @@
     var listCustomer= [[${listCustomer.page}]];
     $(".container-fluid .pull-right ul").empty();
     var pageNum=Math.ceil(listCustomer.totalRecords/10);
+    $(".container-fluid .pull-right ul").append(" <li><a>共"+pageNum+"页</a></li>")
     $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(-1)'>上一页</a></li>")
     for(var i=1;i<=pageNum;i++){
-        $(".container-fluid .pull-right ul").append(" <li><a onclick='goToIndex(this)' aim_index="+i+">"+i+"</a></li>")
+        if (i==1){
+            $(".container-fluid .pull-right ul").append(" <li class='selected_li'><a onclick='goToIndex(this)' aim_index="+i+">"+i+"</a></li>")
+        }else {
+            $(".container-fluid .pull-right ul").append(" <li><a onclick='goToIndex(this)' aim_index="+i+">"+i+"</a></li>")
+        }
     }
     $(".container-fluid .pull-right ul").append(" <li><a onclick='goTo(1)'>下一页</a></li>");
 
     function goTo(val) {
+        if (currentPage==1&&val<0){
+            return;
+        }
+        if (currentPage==pageNum&&val>0){
+            return;
+        }
         currentPage=currentPage+val;
-//        alert(currentPage);
         $(".container-fluid .pull-right ul li a[aim_index='"+currentPage+"']").click();
-//        goToIndex(currentPage)
     }
     function goToIndex(obj) {
         currentPage=parseInt(obj.innerHTML);
+        $(".container-fluid .pull-right ul li").removeClass("selected_li")
         $(obj).closest("ul").find("a").removeClass("selected_li")
         $(obj).addClass("selected_li")
 
-//        alert(obj.innerHTML)
+
         var result=[];
         $.ajax({
             type: "POST",

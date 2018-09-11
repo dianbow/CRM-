@@ -50,6 +50,12 @@ public class CustomerService {
 
   public ResponseData<String> selAllCus(PageForm<Customer> pageForm) {
 
+    if (pageForm.getForm().getUser()!=null){
+      if (pageForm.getForm().getUser().getUsername()!=null&&pageForm.getForm().getUser().getUsername()!=""){
+        User user = userMapper.selectUserByUsername(pageForm.getForm().getUser().getUsername());
+        pageForm.getForm().setUserId(user.getId());
+      }
+    }
     Page page = PageHelper.startPage(pageForm.getPageIndex(), pageForm.getPageSize());
     List<Customer> customers = customerMapper.selectAllCustomer(pageForm.getForm());
 
