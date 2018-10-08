@@ -19,8 +19,8 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.crm.crmsystem.dao.model.CusType" useGeneratedKeys="true" keyProperty="id" >
-    insert into cus_type (custype_name)
-    values (#{custypeName,jdbcType=VARCHAR})
+    insert into cus_type (custype_name,isValid)
+    values (#{custypeName,jdbcType=VARCHAR},1)
   </insert>
   <insert id="insertSelective" parameterType="com.crm.crmsystem.dao.model.CusType" useGeneratedKeys="true" keyProperty="id" >
     insert into cus_type
@@ -50,19 +50,18 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
+
   <select id="selCusType" resultMap="BaseResultMap"  >
     select
     <include refid="Base_Column_List" />
     from cus_type
-    where 
+    where isValid=1
     <if test="form.id!=null">
-      id = #{form.id,jdbcType=INTEGER}
+      AND id = #{form.id,jdbcType=INTEGER}
     </if>
-    <if test="form.custypeName!=null and form.custypeName !='' and form.id!=null">
-      AND custype_name = #{form.custypeName,jdbcType=VARCHAR}
-    </if>
-    <if test="form.custypeName!=null and form.custypeName !='' and form.id==null">
-       custype_name LIKE '%${form.custypeName}%'
+
+    <if test="form.custypeName!=null and form.custypeName !=''">
+      AND custype_name LIKE '%${form.custypeName}%'
     </if>
   </select>
 </mapper>
