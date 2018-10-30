@@ -130,6 +130,7 @@ public class UserController {
       e.printStackTrace();
     } catch (UnsupportedEncodingException e) {
       e.printStackTrace();
+
     }
 
   }
